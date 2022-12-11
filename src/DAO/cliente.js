@@ -1,9 +1,8 @@
-import conn from "../database"
+import conn from "../database.js"
 import bcrypt from 'bcrypt'
 
-module.exports = {
-    getAllProductssDAO: (callback) => {
-        let sql = 'SELECT * FROM clientes'
+    function getAllProductssDAO(callback){
+        let sql = 'SELECT * FROM users'
         conn.query(sql, (err, data) => {
             if (err) throw err
             console.log(err)
@@ -13,10 +12,11 @@ module.exports = {
             else
                 callback(null)
         })
-    },
-    clienteDAO: ( email ,callback) => {
-        let sql = 'SELECT * FROM clientes WHERE email =?'
-        conn.query(sql,email, (err, data) => {
+    };
+
+    function clienteDAO( correo ,callback){
+        let sql = 'SELECT * FROM users WHERE correo =?'
+        conn.query(sql,correo, (err, data) => {
             if (err) throw err
             console.log(err)
 
@@ -25,21 +25,22 @@ module.exports = {
             else
                 callback(null)
         })
-    },
+    };
 
-    postUsersDAO:(user2,callback) => {
-        let sql = 'INSERT INTO clientes set ?'
+    export function postUsersDAO(user2,callback){
+        let sql = 'INSERT INTO users set ?'
+        console.log(conn)
         conn.query(sql,user2,(err, data) => {
             if(err)
                 return null
             else
                 callback(data)    
         })
-    },
+    };
 
     deleteUsersDAO: (idusers, callback) => {
         console.log("Metodo dao para eliminar")
-        let sql = 'DELETE FROM clientes WHERE idclientes = ?'
+        let sql = 'DELETE FROM users WHERE idusers = ?'
         conn.query(sql, idusers, (err, data) => {
             console.log(err);
             if (err)
@@ -47,15 +48,14 @@ module.exports = {
             else
                 return callback(data)
         })
-    },
+    };
 
-    updateUserDAO:(user,idclientes,callback)=>{
+    updateUserDAO:(user,idusers,callback)=>{
         console.log("Metodo UpdateDAO")
-        let sql = 'UPDATE clientes SET ? WHERE idclientes= ?'
-        conn.query(sql, [user, idclientes], function (err, data) {
+        let sql = 'UPDATE users SET ? WHERE idusers= ?'
+        conn.query(sql, [user, idusers], function (err, data) {
             if (err) throw err;
             return callback(data);
         });
-    },
+    };
     
-}    

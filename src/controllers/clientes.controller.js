@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import dao from '../DAO/cliente'
+import * as dao from '../DAO/cliente.js'
 import bcrypt from 'bcrypt'
 
 export const getUsers =async (req, res) => {
@@ -24,8 +24,8 @@ export const getUsers =async (req, res) => {
     })    
 };
 export const validarUsers =async (req, res) => {
-    console.log(req.params.email)
-    await dao.clienteDAO(req.params.email,(Callback)=>{
+    console.log(req.params.correo)
+    await dao.clienteDAO(req.params.correo,(Callback)=>{
         try {
             if (!Callback) throw new Err("Error")
             res.send({
@@ -50,15 +50,15 @@ export const validarUsers =async (req, res) => {
 export const postUsers = async (req, res) => {
     console.log("Si entraa")
     const user = {
-        name : req.body.name,
-        email : req.body.email,
+        correo: req.body.correo,
+        username : req.body.username,
         password : req.body.password
     }
     const hashedPassword = await bcrypt.hash(user.password,10);
 
     const user2 = {
-        name : req.body.name,
-        email : req.body.email,
+        correo : req.body.correo,
+        username : req.body.username,
         password : hashedPassword
     }
 
@@ -109,8 +109,8 @@ export const getProductById =(req,res)=>{
 
 export const updateUser= (req,res)=>{
     const user = {
-        name : req.body.name,
-        email : req.body.email,
+        correo : req.body.correo,
+        username : req.body.username,
         password : req.body.password
     }
     

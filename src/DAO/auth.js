@@ -1,11 +1,11 @@
-import conn from "../database"
+import conn from "../database.js"
 import bcrypt from 'bcrypt'
 
-module.exports = {
+
 
    loginUserDAO: (user, callback) => {
     console.log("Metodo de login")
-    let sql = 'SELECT * FROM clientes WHERE email = ?'
+    let sql = 'SELECT * FROM users WHERE correo = ?'
     conn.query(sql, user, (err, data) => {
         console.log(err);
         if (err)
@@ -13,12 +13,11 @@ module.exports = {
         else
             return callback(data)
     })
-    },
+    };
 
 
-    login2:(user,callback)=>{
-        
-        conn.query( 'SELECT * FROM clientes WHERE email = ' + conn.escape(user.email),(err, data)=>{
+    export function login2(user,callback){
+        conn.query( 'SELECT * FROM users WHERE correo = ' + conn.escape(user.correo),(err, data)=>{
             if(err){
                 //console.log(err)
                 return callback(null)
@@ -28,4 +27,3 @@ module.exports = {
             }
         })
     }
-}

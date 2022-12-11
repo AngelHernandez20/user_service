@@ -1,6 +1,8 @@
-import app from './app';
-import './database'
+//import {app} from './app';
+import app from './app.js'
+//import './database'
+//import 'dotenv/config';
 
-app.listen(3000);
-console.log("Server Funcionando",3000)
+app.listen(process.env.PORT);
+console.log("Server Funcionando",process.env.PORT)
 
